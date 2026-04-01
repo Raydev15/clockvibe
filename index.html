@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ClockVibe — Relógio Moderno</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===== PARTÍCULAS DE FUNDO ===== -->
+  <canvas id="particles" aria-hidden="true"></canvas>
+
+  <!-- ===== TOGGLE TEMA ===== -->
+  <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema claro/escuro" title="Alternar tema">
+    <span class="theme-toggle__icon" id="themeIcon">☀️</span>
+  </button>
+
+  <!-- ===== CONTAINER PRINCIPAL ===== -->
+  <main class="clock-container">
+
+    <!-- Relógio Analógico -->
+    <div class="analog-clock" id="analogClock" aria-label="Relógio analógico">
+      <div class="clock-face">
+        <!-- Marcadores de horas -->
+        <div class="clock-marks" id="clockMarks"></div>
+        <!-- Ponteiros -->
+        <div class="hand hand--hour"   id="hourHand"   aria-hidden="true"></div>
+        <div class="hand hand--minute" id="minuteHand" aria-hidden="true"></div>
+        <div class="hand hand--second" id="secondHand" aria-hidden="true"></div>
+        <!-- Centro -->
+        <div class="clock-center"></div>
+      </div>
+    </div>
+
+    <!-- Relógio Digital -->
+    <div class="digital-section">
+
+      <!-- Hora digital -->
+      <div class="time-display" role="timer" aria-live="polite" aria-atomic="true">
+        <span class="time-display__hours"   id="hours">00</span>
+        <span class="time-display__colon blink">:</span>
+        <span class="time-display__minutes" id="minutes">00</span>
+        <span class="time-display__colon blink">:</span>
+        <span class="time-display__seconds" id="seconds">00</span>
+      </div>
+
+      <!-- Período AM/PM e fuso -->
+      <div class="time-meta">
+        <span class="time-meta__period" id="period">AM</span>
+        <span class="time-meta__separator">·</span>
+        <span class="time-meta__timezone" id="timezone">UTC-3</span>
+      </div>
+
+      <!-- Data -->
+      <div class="date-display" id="dateDisplay" aria-live="polite">
+        <span class="date-display__weekday" id="weekday">Segunda-feira</span>
+        <span class="date-display__separator">,</span>
+        <span class="date-display__full"    id="fullDate">01 de Janeiro de 2025</span>
+      </div>
+
+      <!-- Barra de progresso do dia -->
+      <div class="day-progress" aria-label="Progresso do dia">
+        <div class="day-progress__label">
+          <span>Início do dia</span>
+          <span id="dayPercent">0%</span>
+          <span>Fim do dia</span>
+        </div>
+        <div class="day-progress__bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="progressBar">
+          <div class="day-progress__fill" id="progressFill"></div>
+          <div class="day-progress__glow" id="progressGlow"></div>
+        </div>
+      </div>
+
+      <!-- Cards de informação -->
+      <div class="info-cards">
+        <div class="info-card">
+          <span class="info-card__icon">📅</span>
+          <div class="info-card__content">
+            <span class="info-card__label">Semana</span>
+            <span class="info-card__value" id="weekNumber">—</span>
+          </div>
+        </div>
+        <div class="info-card">
+          <span class="info-card__icon">📆</span>
+          <div class="info-card__content">
+            <span class="info-card__label">Dia do ano</span>
+            <span class="info-card__value" id="dayOfYear">—</span>
+          </div>
+        </div>
+        <div class="info-card">
+          <span class="info-card__icon">🌙</span>
+          <div class="info-card__content">
+            <span class="info-card__label">Fase lunar</span>
+            <span class="info-card__value" id="moonPhase">—</span>
+          </div>
+        </div>
+        <div class="info-card">
+          <span class="info-card__icon">⏱️</span>
+          <div class="info-card__content">
+            <span class="info-card__label">Timestamp</span>
+            <span class="info-card__value" id="timestamp">—</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ===== STOPWATCH / TIMER ===== -->
+  <section class="tools-section">
+    <div class="tools-tabs">
+      <button class="tools-tab tools-tab--active" data-tab="stopwatch">⏱ Cronômetro</button>
+      <button class="tools-tab" data-tab="timer">⏰ Timer</button>
+    </div>
+
+    <!-- Cronômetro -->
+    <div class="tool-panel" id="stopwatchPanel">
+      <div class="stopwatch-display" id="swDisplay">00:00:00.00</div>
+      <div class="tool-controls">
+        <button class="tool-btn tool-btn--primary" id="swStartStop">▶ Iniciar</button>
+        <button class="tool-btn tool-btn--secondary" id="swLap">🏁 Volta</button>
+        <button class="tool-btn tool-btn--danger" id="swReset">↺ Resetar</button>
+      </div>
+      <div class="laps-list" id="lapsList"></div>
+    </div>
+
+    <!-- Timer -->
+    <div class="tool-panel hidden" id="timerPanel">
+      <div class="timer-inputs">
+        <div class="timer-input-group">
+          <input type="number" id="timerHours"   min="0" max="23"  value="0"  placeholder="0" />
+          <label>h</label>
+        </div>
+        <span class="timer-sep">:</span>
+        <div class="timer-input-group">
+          <input type="number" id="timerMinutes" min="0" max="59"  value="5"  placeholder="0" />
+          <label>min</label>
+        </div>
+        <span class="timer-sep">:</span>
+        <div class="timer-input-group">
+          <input type="number" id="timerSeconds" min="0" max="59"  value="0"  placeholder="0" />
+          <label>seg</label>
+        </div>
+      </div>
+      <div class="timer-display" id="timerDisplay">00:05:00</div>
+      <div class="tool-controls">
+        <button class="tool-btn tool-btn--primary" id="timerStartStop">▶ Iniciar</button>
+        <button class="tool-btn tool-btn--danger"  id="timerReset">↺ Resetar</button>
+      </div>
+      <div class="timer-alert hidden" id="timerAlert">
+        <span>⏰ Tempo esgotado!</span>
+        <button onclick="dismissAlert()">OK</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== RODAPÉ ===== -->
+  <footer class="cv-footer">
+    <p>ClockVibe &copy; <span id="footerYear">2025</span> — Feito com ⚡ e JavaScript puro</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
