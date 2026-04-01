@@ -1,649 +1,424 @@
 /* =====================================================
-   CLOCKVIBE — style.css
-   Tema dark/light com variáveis CSS
-   Fontes: Space Grotesk (UI) | JetBrains Mono (dígitos)
+   CLOCKVIBE PRO — style.css
+   Design Premium, Temas Dinâmicos e Modo Widget
    ===================================================== */
 
-/* ── Reset ── */
+/* ── Reset & Base ── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-/* ── Variáveis — Tema Dark (padrão) ── */
-:root,
-[data-theme="dark"] {
-  --bg:           #0a0a0f;
-  --bg-2:         #111118;
-  --bg-3:         #1a1a24;
-  --surface:      #16161e;
-  --surface-2:    #1e1e2a;
-  --border:       rgba(255,255,255,0.08);
-  --border-2:     rgba(255,255,255,0.12);
-  --text:         #f0f0ff;
-  --text-2:       rgba(240,240,255,0.65);
-  --text-3:       rgba(240,240,255,0.35);
-  --accent:       #7c6fff;
-  --accent-2:     #a78bfa;
-  --accent-glow:  rgba(124,111,255,0.35);
-  --cyan:         #22d3ee;
-  --pink:         #f472b6;
-  --green:        #4ade80;
-  --orange:       #fb923c;
-  --red:          #f87171;
-  --clock-face:   #13131a;
-  --clock-border: rgba(124,111,255,0.3);
-  --hand-hour:    #f0f0ff;
-  --hand-min:     #a78bfa;
-  --hand-sec:     #f472b6;
-  --mark-major:   rgba(240,240,255,0.7);
-  --mark-minor:   rgba(240,240,255,0.2);
-  --shadow:       0 25px 60px rgba(0,0,0,0.6);
-  --shadow-sm:    0 4px 16px rgba(0,0,0,0.4);
-  --particle-color: rgba(124,111,255,0.15);
+:root {
+  /* Tema Cyberpunk (Padrão) */
+  --bg: #050505;
+  --bg-2: #0a0a0a;
+  --bg-3: #111111;
+  --surface: #161616;
+  --surface-2: #1e1e1e;
+  --accent: #00f2ff;
+  --accent-2: #7000ff;
+  --accent-glow: rgba(0, 242, 255, 0.3);
+  --text: #ffffff;
+  --text-2: rgba(255, 255, 255, 0.7);
+  --text-3: rgba(255, 255, 255, 0.4);
+  --border: rgba(255, 255, 255, 0.1);
+  --shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+  --font-main: 'Space Grotesk', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-title: 'Syne', sans-serif;
 }
 
-/* ── Variáveis — Tema Light ── */
-[data-theme="light"] {
-  --bg:           #f0f0f8;
-  --bg-2:         #e8e8f2;
-  --bg-3:         #dcdce8;
-  --surface:      #ffffff;
-  --surface-2:    #f5f5fc;
-  --border:       rgba(0,0,0,0.08);
-  --border-2:     rgba(0,0,0,0.12);
-  --text:         #1a1a2e;
-  --text-2:       rgba(26,26,46,0.65);
-  --text-3:       rgba(26,26,46,0.35);
-  --accent:       #6d5bff;
-  --accent-2:     #8b5cf6;
-  --accent-glow:  rgba(109,91,255,0.2);
-  --cyan:         #0891b2;
-  --pink:         #db2777;
-  --green:        #16a34a;
-  --orange:       #ea580c;
-  --red:          #dc2626;
-  --clock-face:   #ffffff;
-  --clock-border: rgba(109,91,255,0.25);
-  --hand-hour:    #1a1a2e;
-  --hand-min:     #6d5bff;
-  --hand-sec:     #db2777;
-  --mark-major:   rgba(26,26,46,0.7);
-  --mark-minor:   rgba(26,26,46,0.2);
-  --shadow:       0 25px 60px rgba(0,0,0,0.12);
-  --shadow-sm:    0 4px 16px rgba(0,0,0,0.08);
-  --particle-color: rgba(109,91,255,0.08);
+/* ── Temas Adicionais ── */
+[data-theme="minimal"] {
+  --bg: #f8f9fa;
+  --bg-2: #ffffff;
+  --bg-3: #e9ecef;
+  --surface: #ffffff;
+  --surface-2: #f1f3f5;
+  --accent: #212529;
+  --accent-2: #495057;
+  --accent-glow: rgba(33, 37, 41, 0.1);
+  --text: #212529;
+  --text-2: #495057;
+  --text-3: #adb5bd;
+  --border: rgba(0, 0, 0, 0.08);
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="ocean"] {
+  --bg: #001219;
+  --bg-2: #001e29;
+  --bg-3: #002a3a;
+  --surface: #002a3a;
+  --surface-2: #003a4a;
+  --accent: #94d2bd;
+  --accent-2: #0a9396;
+  --accent-glow: rgba(148, 210, 189, 0.3);
+  --text: #e9d8a6;
+  --text-2: #ee9b00;
+  --text-3: #ca6702;
+  --border: rgba(148, 210, 189, 0.1);
+  --shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+[data-theme="gold"] {
+  --bg: #1a1a1a;
+  --bg-2: #2a2a2a;
+  --bg-3: #333333;
+  --surface: #2a2a2a;
+  --surface-2: #3a3a3a;
+  --accent: #d4af37;
+  --accent-2: #f9d71c;
+  --accent-glow: rgba(212, 175, 55, 0.3);
+  --text: #ffffff;
+  --text-2: #d4af37;
+  --text-3: rgba(212, 175, 55, 0.5);
+  --border: rgba(212, 175, 55, 0.2);
+  --shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
 }
 
 /* ── Base ── */
-html {
-  font-size: 16px;
-  scroll-behavior: smooth;
-}
+html { scroll-behavior: smooth; }
 body {
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--font-main);
   background: var(--bg);
   color: var(--text);
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transition: background 0.4s ease, color 0.4s ease;
+  transition: background 0.5s ease, color 0.5s ease;
   overflow-x: hidden;
 }
 
-/* ── Canvas de partículas ── */
+/* ── Background Overlay ── */
+.bg-overlay {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 50% 50%, var(--bg-2) 0%, var(--bg) 100%);
+  z-index: -2;
+}
 #particles {
   position: fixed;
   inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  opacity: 0.6;
+  z-index: -1;
+  opacity: 0.4;
 }
 
-/* ── Toggle de tema ── */
-.theme-toggle {
+/* ── Header ── */
+.cv-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 40px;
   position: fixed;
-  top: 20px;
-  right: 20px;
-  z-index: 100;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  border: 1px solid var(--border-2);
-  background: var(--surface);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.3rem;
-  box-shadow: var(--shadow-sm);
-  transition: all 0.3s ease;
-}
-.theme-toggle:hover {
-  transform: scale(1.1) rotate(15deg);
-  border-color: var(--accent);
-  box-shadow: 0 0 20px var(--accent-glow);
-}
-
-/* =====================================================
-   CONTAINER PRINCIPAL
-   ===================================================== */
-.clock-container {
-  position: relative;
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 80px;
-  padding: 80px 40px 40px;
-  max-width: 1100px;
+  top: 0;
   width: 100%;
-  flex-wrap: wrap;
+  z-index: 100;
+  background: rgba(var(--bg), 0.8);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+.cv-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: 1.4rem;
+  color: var(--accent);
+}
+.badge-pro {
+  font-size: 0.6rem;
+  background: var(--accent-2);
+  color: #fff;
+  padding: 2px 6px;
+  border-radius: 4px;
+  vertical-align: middle;
+}
+.cv-nav { display: flex; gap: 30px; }
+.cv-nav a {
+  text-decoration: none;
+  color: var(--text-2);
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: color 0.3s;
+}
+.cv-nav a:hover { color: var(--accent); }
+.cv-actions { display: flex; gap: 15px; align-items: center; }
+.btn-widget {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--text);
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.btn-widget:hover { background: var(--accent); color: var(--bg); }
+.btn-login {
+  background: var(--accent);
+  color: var(--bg);
+  border: none;
+  padding: 8px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
 }
 
-/* =====================================================
-   RELÓGIO ANALÓGICO
-   ===================================================== */
+/* ── Main Wrapper ── */
+.main-wrapper {
+  padding-top: 120px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding-bottom: 100px;
+}
+
+/* ── Clock Hero ── */
+.clock-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 40px;
+  margin-bottom: 100px;
+}
+.clock-display-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 60px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Analog Clock */
 .analog-clock {
-  flex-shrink: 0;
+  width: 300px;
+  height: 300px;
+  position: relative;
 }
 .clock-face {
-  position: relative;
-  width: 260px;
-  height: 260px;
+  width: 100%;
+  height: 100%;
   border-radius: 50%;
-  background: var(--clock-face);
-  border: 2px solid var(--clock-border);
-  box-shadow:
-    var(--shadow),
-    0 0 40px var(--accent-glow),
-    inset 0 0 30px rgba(0,0,0,0.1);
-  transition: background 0.4s, border-color 0.4s, box-shadow 0.4s;
+  background: var(--surface);
+  border: 4px solid var(--accent);
+  box-shadow: 0 0 30px var(--accent-glow), inset 0 0 20px rgba(0,0,0,0.5);
+  position: relative;
 }
-
-/* Marcadores */
-.clock-mark {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform-origin: 0 0;
-  border-radius: 2px;
-}
-.clock-mark--major {
-  width: 3px;
-  height: 18px;
-  background: var(--mark-major);
-  margin-top: -9px;
-  margin-left: -1.5px;
-}
-.clock-mark--minor {
-  width: 1.5px;
-  height: 10px;
-  background: var(--mark-minor);
-  margin-top: -5px;
-  margin-left: -0.75px;
-}
-
-/* Ponteiros */
 .hand {
   position: absolute;
   bottom: 50%;
   left: 50%;
   transform-origin: bottom center;
-  border-radius: 4px 4px 0 0;
-  transition: transform 0.05s linear;
+  border-radius: 10px;
 }
-.hand--hour {
-  width: 6px;
-  height: 70px;
-  background: var(--hand-hour);
-  margin-left: -3px;
-  box-shadow: 0 0 8px rgba(0,0,0,0.3);
-}
-.hand--minute {
-  width: 4px;
-  height: 95px;
-  background: var(--hand-min);
-  margin-left: -2px;
-  box-shadow: 0 0 8px var(--accent-glow);
-}
-.hand--second {
-  width: 2px;
-  height: 110px;
-  background: var(--hand-sec);
-  margin-left: -1px;
-  box-shadow: 0 0 12px var(--pink);
-  transition: transform 0.1s cubic-bezier(0.4, 2.08, 0.55, 0.44);
-}
-
-/* Centro */
+.hand--hour { width: 6px; height: 80px; background: var(--text); margin-left: -3px; }
+.hand--minute { width: 4px; height: 110px; background: var(--accent); margin-left: -2px; }
+.hand--second { width: 2px; height: 130px; background: var(--accent-2); margin-left: -1px; }
 .clock-center {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
+  width: 12px;
+  height: 12px;
   background: var(--accent);
+  border-radius: 50%;
   transform: translate(-50%, -50%);
-  box-shadow: 0 0 12px var(--accent-glow);
   z-index: 10;
 }
 
-/* =====================================================
-   SEÇÃO DIGITAL
-   ===================================================== */
-.digital-section {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 20px;
-  min-width: 340px;
-}
-
-/* Hora digital */
-.time-display {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-family: 'JetBrains Mono', monospace;
-  font-size: clamp(3.5rem, 8vw, 5.5rem);
-  font-weight: 300;
-  letter-spacing: -0.02em;
+/* Digital Clock */
+.digital-clock { text-align: center; }
+.time-main {
+  font-family: var(--font-mono);
+  font-size: 6rem;
+  font-weight: 700;
+  line-height: 1;
   color: var(--text);
-  line-height: 1;
 }
-.time-display__hours   { color: var(--text); }
-.time-display__minutes { color: var(--accent-2); }
-.time-display__seconds {
-  font-size: 0.55em;
-  color: var(--text-2);
-  align-self: flex-end;
-  padding-bottom: 0.15em;
-}
-.time-display__colon {
-  color: var(--accent);
-  font-size: 0.8em;
-  line-height: 1;
-  align-self: center;
-  margin-bottom: 0.05em;
-}
-.blink {
-  animation: blink 1s step-end infinite;
-}
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0.2; }
-}
+.seconds-small { font-size: 2rem; color: var(--accent); margin-left: 10px; }
+.date-main { font-size: 1.5rem; color: var(--text-2); margin-top: 10px; }
 
-/* Meta */
-.time-meta {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 0.85rem;
-  color: var(--text-3);
-  font-weight: 500;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
-}
-.time-meta__period {
-  background: var(--surface-2);
-  border: 1px solid var(--border);
-  padding: 3px 10px;
-  border-radius: 20px;
-  color: var(--accent-2);
-  font-size: 0.75rem;
-}
-.time-meta__separator { opacity: 0.4; }
+/* Progress Bar */
+.progress-container { width: 100%; max-width: 600px; }
+.progress-label { display: flex; justify-content: space-between; font-size: 0.9rem; margin-bottom: 10px; color: var(--text-3); }
+.progress-bar { height: 8px; background: var(--surface); border-radius: 10px; overflow: hidden; border: 1px solid var(--border); }
+.progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent-2)); width: 0%; transition: width 1s linear; }
 
-/* Data */
-.date-display {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 1.1rem;
-  color: var(--text-2);
-  font-weight: 400;
-}
-.date-display__weekday { color: var(--accent-2); font-weight: 600; }
-.date-display__separator { color: var(--text-3); }
-.date-display__full { color: var(--text-2); }
+/* ── Sections ── */
+.section-container { padding: 80px 20px; }
+.section-header { text-align: center; margin-bottom: 50px; }
+.section-title { font-family: var(--font-title); font-size: 2.5rem; font-weight: 800; margin-bottom: 10px; }
+.section-desc { color: var(--text-2); font-size: 1.1rem; }
 
-/* Barra de progresso do dia */
-.day-progress {
-  width: 100%;
-}
-.day-progress__label {
-  display: flex;
-  justify-content: space-between;
-  font-size: 0.72rem;
-  color: var(--text-3);
-  margin-bottom: 8px;
-  font-weight: 500;
-}
-.day-progress__bar {
-  position: relative;
-  height: 6px;
-  background: var(--surface-2);
-  border-radius: 6px;
-  overflow: visible;
-  border: 1px solid var(--border);
-}
-.day-progress__fill {
-  height: 100%;
-  border-radius: 6px;
-  background: linear-gradient(90deg, var(--accent), var(--pink));
-  transition: width 1s linear;
-  position: relative;
-}
-.day-progress__glow {
-  position: absolute;
-  right: -3px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: var(--pink);
-  box-shadow: 0 0 10px var(--pink), 0 0 20px var(--pink);
-  transition: left 1s linear;
-}
-
-/* Cards de informação */
-.info-cards {
+/* Themes Grid */
+.themes-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  width: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
 }
-.info-card {
+.theme-card {
+  background: var(--surface);
+  border: 2px solid var(--border);
+  padding: 20px;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: all 0.3s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+  color: var(--text);
+}
+.theme-card:hover { border-color: var(--accent); transform: translateY(-5px); }
+.theme-card.active { border-color: var(--accent); background: var(--surface-2); }
+.theme-preview { width: 60px; height: 60px; border-radius: 50%; }
+.theme-preview.cyberpunk { background: linear-gradient(45deg, #00f2ff, #7000ff); }
+.theme-preview.minimal { background: linear-gradient(45deg, #212529, #adb5bd); }
+.theme-preview.ocean { background: linear-gradient(45deg, #001219, #94d2bd); }
+.theme-preview.gold { background: linear-gradient(45deg, #d4af37, #1a1a1a); }
+.theme-preview.nebula { background: linear-gradient(45deg, #ff00cc, #3333ff); }
+.pro-locked { opacity: 0.7; position: relative; }
+.lock-icon { width: 14px; height: 14px; margin-left: 5px; }
+
+/* Pricing Grid */
+.pricing-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+.price-card {
+  background: var(--surface);
+  padding: 40px;
+  border-radius: 30px;
+  border: 1px solid var(--border);
+  text-align: center;
+  transition: all 0.3s;
+  position: relative;
+}
+.price-card:hover { transform: scale(1.02); border-color: var(--accent); }
+.price-card.featured { border: 2px solid var(--accent); box-shadow: 0 0 30px var(--accent-glow); }
+.badge-popular {
+  position: absolute;
+  top: -15px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--accent);
+  color: var(--bg);
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 800;
+}
+.price-card h3 { font-size: 1.8rem; margin-bottom: 20px; }
+.price { font-size: 3rem; font-weight: 800; margin-bottom: 30px; }
+.price span { font-size: 1rem; color: var(--text-3); }
+.price-card ul { list-style: none; text-align: left; margin-bottom: 40px; }
+.price-card li { margin-bottom: 15px; display: flex; align-items: center; gap: 10px; color: var(--text-2); }
+.price-card li i { color: var(--accent); width: 18px; }
+.price-card li i.x-icon { color: #ff4d4d; }
+.btn-price {
+  width: 100%;
+  padding: 15px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: var(--bg-3);
+  color: var(--text);
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+.btn-price.btn-primary { background: var(--accent); color: var(--bg); border: none; }
+
+/* Sales Grid */
+.sales-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 30px;
+}
+.sale-item {
+  background: var(--surface);
+  border-radius: 25px;
+  display: flex;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.sale-img {
+  width: 150px;
+  background: var(--bg-3);
   display: flex;
   align-items: center;
-  gap: 12px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 14px 16px;
-  transition: all 0.3s ease;
-}
-.info-card:hover {
-  border-color: var(--border-2);
-  background: var(--surface-2);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-sm);
-}
-.info-card__icon { font-size: 1.3rem; flex-shrink: 0; }
-.info-card__content {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-.info-card__label {
-  font-size: 0.7rem;
-  color: var(--text-3);
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-weight: 600;
-}
-.info-card__value {
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--text);
-  font-family: 'JetBrains Mono', monospace;
-}
-
-/* =====================================================
-   FERRAMENTAS (Cronômetro / Timer)
-   ===================================================== */
-.tools-section {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  max-width: 600px;
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 20px;
-  padding: 28px;
-  margin: 0 auto 40px;
-  box-shadow: var(--shadow-sm);
-  transition: background 0.4s, border-color 0.4s;
-}
-
-/* Abas */
-.tools-tabs {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 24px;
-  background: var(--bg-3);
-  border-radius: 12px;
-  padding: 4px;
-}
-.tools-tab {
-  flex: 1;
-  padding: 10px 16px;
-  border: none;
-  border-radius: 10px;
-  background: transparent;
-  color: var(--text-3);
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 0.9rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.25s ease;
-}
-.tools-tab--active {
-  background: var(--surface);
-  color: var(--text);
-  box-shadow: var(--shadow-sm);
-}
-.tools-tab:hover:not(.tools-tab--active) { color: var(--text-2); }
-
-/* Painéis */
-.tool-panel { display: flex; flex-direction: column; align-items: center; gap: 20px; }
-.tool-panel.hidden { display: none; }
-
-/* Cronômetro */
-.stopwatch-display {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: clamp(2.2rem, 6vw, 3.2rem);
-  font-weight: 300;
-  color: var(--text);
-  letter-spacing: 0.05em;
-  text-align: center;
-}
-
-/* Controles */
-.tool-controls {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
   justify-content: center;
+  color: var(--accent);
 }
-.tool-btn {
-  padding: 10px 24px;
-  border: none;
-  border-radius: 50px;
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 0.9rem;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.25s ease;
-}
-.tool-btn--primary {
-  background: linear-gradient(135deg, var(--accent), var(--accent-2));
-  color: #fff;
-  box-shadow: 0 4px 16px var(--accent-glow);
-}
-.tool-btn--primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px var(--accent-glow);
-}
-.tool-btn--secondary {
+.sale-img i { width: 60px; height: 60px; }
+.sale-info { padding: 30px; flex: 1; }
+.sale-info h4 { font-size: 1.3rem; margin-bottom: 10px; }
+.sale-info p { color: var(--text-2); font-size: 0.9rem; margin-bottom: 20px; }
+.sale-footer { display: flex; justify-content: space-between; align-items: center; }
+.sale-price { font-size: 1.4rem; font-weight: 800; color: var(--accent); }
+.btn-buy {
   background: var(--surface-2);
-  color: var(--text-2);
   border: 1px solid var(--border);
-}
-.tool-btn--secondary:hover { background: var(--bg-3); color: var(--text); }
-.tool-btn--danger {
-  background: rgba(248,113,113,0.1);
-  color: var(--red);
-  border: 1px solid rgba(248,113,113,0.2);
-}
-.tool-btn--danger:hover { background: rgba(248,113,113,0.2); }
-
-/* Lista de voltas */
-.laps-list {
-  width: 100%;
-  max-height: 180px;
-  overflow-y: auto;
+  color: var(--text);
+  padding: 8px 15px;
+  border-radius: 8px;
+  cursor: pointer;
   display: flex;
-  flex-direction: column;
-  gap: 6px;
+  align-items: center;
+  gap: 8px;
+  transition: all 0.3s;
 }
-.laps-list::-webkit-scrollbar { width: 4px; }
-.laps-list::-webkit-scrollbar-track { background: transparent; }
-.laps-list::-webkit-scrollbar-thumb { background: var(--border-2); border-radius: 4px; }
+.btn-buy:hover { background: var(--accent); color: var(--bg); }
 
-.lap-item {
+/* ── Widget Mode ── */
+.widget-mode {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.95);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.5s;
+}
+.widget-mode.hidden { display: none; opacity: 0; }
+.widget-content { text-align: center; position: relative; }
+.widget-time { font-family: var(--font-mono); font-size: 15rem; font-weight: 800; color: var(--accent); line-height: 1; }
+.widget-date { font-size: 4rem; color: var(--text-2); margin-top: 20px; }
+.close-widget {
+  position: absolute;
+  top: -100px;
+  right: -100px;
+  background: none;
+  border: none;
+  color: var(--text-3);
+  cursor: pointer;
+}
+.close-widget i { width: 40px; height: 40px; }
+
+/* ── Footer ── */
+.cv-footer {
+  background: var(--bg-2);
+  padding: 60px 40px 20px;
+  border-top: 1px solid var(--border);
+}
+.footer-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px 14px;
-  background: var(--bg-3);
-  border-radius: 8px;
-  font-size: 0.85rem;
-  font-family: 'JetBrains Mono', monospace;
-  animation: lapIn 0.25s ease;
+  margin-bottom: 40px;
+  flex-wrap: wrap;
+  gap: 30px;
 }
-@keyframes lapIn {
-  from { opacity: 0; transform: translateX(-10px); }
-  to   { opacity: 1; transform: translateX(0); }
-}
-.lap-item__num { color: var(--text-3); font-size: 0.75rem; }
-.lap-item__time { color: var(--accent-2); font-weight: 600; }
-.lap-item__delta { color: var(--text-3); font-size: 0.8rem; }
+.footer-brand { font-family: var(--font-title); font-weight: 800; font-size: 1.5rem; display: flex; align-items: center; gap: 10px; }
+.footer-links { display: flex; gap: 30px; }
+.footer-links a { color: var(--text-3); text-decoration: none; font-size: 0.9rem; }
+.footer-social { display: flex; gap: 20px; color: var(--text-3); }
+.copyright { text-align: center; font-size: 0.8rem; color: var(--text-3); border-top: 1px solid var(--border); padding-top: 20px; }
 
-/* Timer */
-.timer-inputs {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .cv-nav { display: none; }
+  .time-main { font-size: 4rem; }
+  .sales-grid { grid-template-columns: 1fr; }
+  .sale-item { flex-direction: column; }
+  .sale-img { width: 100%; height: 150px; }
+  .widget-time { font-size: 8rem; }
 }
-.timer-input-group {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-}
-.timer-input-group input {
-  width: 72px;
-  padding: 10px;
-  text-align: center;
-  background: var(--bg-3);
-  border: 1px solid var(--border);
-  border-radius: 10px;
-  color: var(--text);
-  font-family: 'JetBrains Mono', monospace;
-  font-size: 1.3rem;
-  font-weight: 500;
-  outline: none;
-  transition: border-color 0.25s;
-}
-.timer-input-group input:focus { border-color: var(--accent); }
-.timer-input-group label { font-size: 0.7rem; color: var(--text-3); font-weight: 600; text-transform: uppercase; }
-.timer-sep { font-size: 1.5rem; color: var(--text-3); font-weight: 300; margin-bottom: 20px; }
-
-.timer-display {
-  font-family: 'JetBrains Mono', monospace;
-  font-size: clamp(2.2rem, 6vw, 3.2rem);
-  font-weight: 300;
-  color: var(--text);
-  letter-spacing: 0.05em;
-  text-align: center;
-}
-.timer-display.urgent { color: var(--red); animation: urgentPulse 0.5s ease infinite; }
-@keyframes urgentPulse {
-  0%, 100% { opacity: 1; }
-  50%       { opacity: 0.5; }
-}
-
-.timer-alert {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  background: rgba(248,113,113,0.1);
-  border: 1px solid rgba(248,113,113,0.3);
-  border-radius: 12px;
-  padding: 14px 20px;
-  color: var(--red);
-  font-weight: 600;
-  animation: alertIn 0.4s cubic-bezier(0.34,1.56,0.64,1);
-}
-@keyframes alertIn {
-  from { transform: scale(0.8); opacity: 0; }
-  to   { transform: scale(1);   opacity: 1; }
-}
-.timer-alert button {
-  padding: 6px 16px;
-  border: 1px solid var(--red);
-  border-radius: 20px;
-  background: transparent;
-  color: var(--red);
-  cursor: pointer;
-  font-weight: 600;
-  transition: all 0.2s;
-}
-.timer-alert button:hover { background: var(--red); color: #fff; }
-.timer-alert.hidden { display: none; }
-
-/* =====================================================
-   RODAPÉ
-   ===================================================== */
-.cv-footer {
-  position: relative;
-  z-index: 1;
-  padding: 20px;
-  text-align: center;
-  font-size: 0.8rem;
-  color: var(--text-3);
-  font-weight: 400;
-}
-
-/* =====================================================
-   RESPONSIVIDADE
-   ===================================================== */
-@media (max-width: 900px) {
-  .clock-container {
-    flex-direction: column;
-    align-items: center;
-    gap: 40px;
-    padding: 80px 24px 32px;
-  }
-  .digital-section {
-    align-items: center;
-    text-align: center;
-    min-width: unset;
-    width: 100%;
-  }
-  .day-progress { width: 100%; max-width: 400px; }
-  .info-cards { max-width: 400px; }
-}
-
-@media (max-width: 480px) {
-  .clock-face { width: 200px; height: 200px; }
-  .hand--hour   { height: 54px; }
-  .hand--minute { height: 73px; }
-  .hand--second { height: 85px; }
-  .time-display { font-size: 3rem; }
-  .info-cards { grid-template-columns: 1fr; }
-  .tools-section { padding: 20px 16px; }
-  .timer-inputs { gap: 4px; }
-  .timer-input-group input { width: 60px; font-size: 1.1rem; }
-}
-
-/* ── Estilos para Lucide Icons ── */
-.theme-toggle__icon { width: 24px; height: 24px; color: var(--accent); }
-.info-card__icon svg { width: 24px; height: 24px; color: var(--accent-2); }
-.tools-tab svg { width: 18px; height: 18px; vertical-align: middle; margin-right: 6px; }
-.tool-btn svg { width: 18px; height: 18px; vertical-align: middle; margin-right: 6px; }
-.timer-alert svg { width: 20px; height: 20px; vertical-align: middle; margin-right: 8px; }
-.zap-icon { width: 14px; height: 14px; color: var(--accent); fill: var(--accent); vertical-align: middle; display: inline-block; }

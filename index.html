@@ -1,177 +1,217 @@
 <!DOCTYPE html>
-<html lang="pt-BR" data-theme="dark">
+<html lang="pt-BR" data-theme="cyberpunk">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ClockVibe — Relógio Moderno</title>
+  <title>ClockVibe Pro — O Relógio do Futuro</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&family=Syne:wght@400;700;800&display=swap"
     rel="stylesheet"
   />
   <link rel="stylesheet" href="style.css" />
-  <!-- Lucide Icons CDN -->
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
 
-  <!-- ===== PARTÍCULAS DE FUNDO ===== -->
+  <!-- ===== BACKGROUND DINÂMICO ===== -->
+  <div class="bg-overlay"></div>
   <canvas id="particles" aria-hidden="true"></canvas>
 
-  <!-- ===== TOGGLE TEMA ===== -->
-  <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema claro/escuro" title="Alternar tema">
-    <i data-lucide="sun" id="themeIcon" class="theme-toggle__icon"></i>
-  </button>
-
-  <!-- ===== CONTAINER PRINCIPAL ===== -->
-  <main class="clock-container">
-
-    <!-- Relógio Analógico -->
-    <div class="analog-clock" id="analogClock" aria-label="Relógio analógico">
-      <div class="clock-face">
-        <!-- Marcadores de horas -->
-        <div class="clock-marks" id="clockMarks"></div>
-        <!-- Ponteiros -->
-        <div class="hand hand--hour"   id="hourHand"   aria-hidden="true"></div>
-        <div class="hand hand--minute" id="minuteHand" aria-hidden="true"></div>
-        <div class="hand hand--second" id="secondHand" aria-hidden="true"></div>
-        <!-- Centro -->
-        <div class="clock-center"></div>
-      </div>
+  <!-- ===== HEADER / NAV ===== -->
+  <header class="cv-header">
+    <div class="cv-logo">
+      <i data-lucide="zap" class="logo-icon"></i>
+      <span>ClockVibe <span class="badge-pro">PRO</span></span>
     </div>
-
-    <!-- Relógio Digital -->
-    <div class="digital-section">
-
-      <!-- Hora digital -->
-      <div class="time-display" role="timer" aria-live="polite" aria-atomic="true">
-        <span class="time-display__hours"   id="hours">00</span>
-        <span class="time-display__colon blink">:</span>
-        <span class="time-display__minutes" id="minutes">00</span>
-        <span class="time-display__colon blink">:</span>
-        <span class="time-display__seconds" id="seconds">00</span>
-      </div>
-
-      <!-- Período AM/PM e fuso -->
-      <div class="time-meta">
-        <span class="time-meta__period" id="period">AM</span>
-        <span class="time-meta__separator">·</span>
-        <span class="time-meta__timezone" id="timezone">UTC-3</span>
-      </div>
-
-      <!-- Data -->
-      <div class="date-display" id="dateDisplay" aria-live="polite">
-        <span class="date-display__weekday" id="weekday">Segunda-feira</span>
-        <span class="date-display__separator">,</span>
-        <span class="date-display__full"    id="fullDate">01 de Janeiro de 2025</span>
-      </div>
-
-      <!-- Barra de progresso do dia -->
-      <div class="day-progress" aria-label="Progresso do dia">
-        <div class="day-progress__label">
-          <span>Início do dia</span>
-          <span id="dayPercent">0%</span>
-          <span>Fim do dia</span>
-        </div>
-        <div class="day-progress__bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" id="progressBar">
-          <div class="day-progress__fill" id="progressFill"></div>
-          <div class="day-progress__glow" id="progressGlow"></div>
-        </div>
-      </div>
-
-      <!-- Cards de informação -->
-      <div class="info-cards">
-        <div class="info-card">
-          <span class="info-card__icon"><i data-lucide="calendar"></i></span>
-          <div class="info-card__content">
-            <span class="info-card__label">Semana</span>
-            <span class="info-card__value" id="weekNumber">—</span>
-          </div>
-        </div>
-        <div class="info-card">
-          <span class="info-card__icon"><i data-lucide="calendar-days"></i></span>
-          <div class="info-card__content">
-            <span class="info-card__label">Dia do ano</span>
-            <span class="info-card__value" id="dayOfYear">—</span>
-          </div>
-        </div>
-        <div class="info-card">
-          <span class="info-card__icon"><i data-lucide="moon"></i></span>
-          <div class="info-card__content">
-            <span class="info-card__label">Fase lunar</span>
-            <span class="info-card__value" id="moonPhase">—</span>
-          </div>
-        </div>
-        <div class="info-card">
-          <span class="info-card__icon"><i data-lucide="hash"></i></span>
-          <div class="info-card__content">
-            <span class="info-card__label">Timestamp</span>
-            <span class="info-card__value" id="timestamp">—</span>
-          </div>
-        </div>
-      </div>
-
+    <nav class="cv-nav">
+      <a href="#relogio">Relógio</a>
+      <a href="#temas">Temas</a>
+      <a href="#planos">Assinaturas</a>
+      <a href="#vendas">Vendas</a>
+    </nav>
+    <div class="cv-actions">
+      <button class="btn-widget" id="toggleWidget" title="Modo Widget Desktop">
+        <i data-lucide="monitor"></i>
+      </button>
+      <button class="btn-login">Entrar</button>
     </div>
+  </header>
+
+  <!-- ===== MAIN CONTENT ===== -->
+  <main class="main-wrapper" id="relogio">
+    
+    <!-- Seção do Relógio -->
+    <section class="clock-hero">
+      <div class="clock-display-wrapper">
+        <div class="analog-clock" id="analogClock">
+          <div class="clock-face">
+            <div class="clock-marks" id="clockMarks"></div>
+            <div class="hand hand--hour" id="hourHand"></div>
+            <div class="hand hand--minute" id="minuteHand"></div>
+            <div class="hand hand--second" id="secondHand"></div>
+            <div class="clock-center"></div>
+          </div>
+        </div>
+
+        <div class="digital-clock">
+          <div class="time-main">
+            <span id="hours">00</span><span class="colon">:</span><span id="minutes">00</span><span class="seconds-small" id="seconds">00</span>
+          </div>
+          <div class="date-main">
+            <span id="weekday">Segunda</span>, <span id="fullDate">01 Jan 2026</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Barra de Progresso Criativa -->
+      <div class="progress-container">
+        <div class="progress-label">Progresso do Dia <span id="dayPercent">0%</span></div>
+        <div class="progress-bar">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção de Temas e Personalização -->
+    <section class="section-container" id="temas">
+      <div class="section-header">
+        <h2 class="section-title">Temas & Estilos</h2>
+        <p class="section-desc">Personalize sua experiência com temas exclusivos e modernos.</p>
+      </div>
+      <div class="themes-grid">
+        <button class="theme-card active" data-theme="cyberpunk">
+          <div class="theme-preview cyberpunk"></div>
+          <span>Cyberpunk</span>
+        </button>
+        <button class="theme-card" data-theme="minimal">
+          <div class="theme-preview minimal"></div>
+          <span>Minimalist</span>
+        </button>
+        <button class="theme-card" data-theme="ocean">
+          <div class="theme-preview ocean"></div>
+          <span>Deep Ocean</span>
+        </button>
+        <button class="theme-card" data-theme="gold">
+          <div class="theme-preview gold"></div>
+          <span>Luxury Gold</span>
+        </button>
+        <button class="theme-card pro-locked" data-theme="nebula">
+          <div class="theme-preview nebula"></div>
+          <span>Nebula <i data-lucide="lock" class="lock-icon"></i></span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Seção de Assinaturas / Planos -->
+    <section class="section-container" id="planos">
+      <div class="section-header">
+        <h2 class="section-title">Planos de Assinatura</h2>
+        <p class="section-desc">Desbloqueie todo o potencial do ClockVibe Pro.</p>
+      </div>
+      <div class="pricing-grid">
+        <div class="price-card">
+          <h3>Free</h3>
+          <div class="price">R$ 0<span>/mês</span></div>
+          <ul>
+            <li><i data-lucide="check"></i> Relógio Digital/Analógico</li>
+            <li><i data-lucide="check"></i> 2 Temas Básicos</li>
+            <li><i data-lucide="x" class="x-icon"></i> Sem Anúncios</li>
+            <li><i data-lucide="x" class="x-icon"></i> Widget Desktop</li>
+          </ul>
+          <button class="btn-price">Plano Atual</button>
+        </div>
+        <div class="price-card featured">
+          <div class="badge-popular">MAIS POPULAR</div>
+          <h3>Pro</h3>
+          <div class="price">R$ 19<span>/mês</span></div>
+          <ul>
+            <li><i data-lucide="check"></i> Todos os Temas Premium</li>
+            <li><i data-lucide="check"></i> Widget Desktop Ilimitado</li>
+            <li><i data-lucide="check"></i> Modo Pomodoro Integrado</li>
+            <li><i data-lucide="check"></i> Suporte Prioritário</li>
+          </ul>
+          <button class="btn-price btn-primary">Assinar Agora</button>
+        </div>
+        <div class="price-card">
+          <h3>Lifetime</h3>
+          <div class="price">R$ 99<span>/único</span></div>
+          <ul>
+            <li><i data-lucide="check"></i> Acesso Vitalício</li>
+            <li><i data-lucide="check"></i> Todas as Futuras Atualizações</li>
+            <li><i data-lucide="check"></i> Certificado Digital PRO</li>
+            <li><i data-lucide="check"></i> Cloud Sync</li>
+          </ul>
+          <button class="btn-price">Comprar Agora</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção de Vendas / Checkout -->
+    <section class="section-container" id="vendas">
+      <div class="section-header">
+        <h2 class="section-title">Loja ClockVibe</h2>
+        <p class="section-desc">Adquira licenças e extensões exclusivas.</p>
+      </div>
+      <div class="sales-grid">
+        <div class="sale-item">
+          <div class="sale-img"><i data-lucide="monitor-smartphone"></i></div>
+          <div class="sale-info">
+            <h4>Licença Multi-Device</h4>
+            <p>Use o ClockVibe em até 5 dispositivos simultaneamente.</p>
+            <div class="sale-footer">
+              <span class="sale-price">R$ 29,90</span>
+              <button class="btn-buy"><i data-lucide="shopping-cart"></i> Comprar</button>
+            </div>
+          </div>
+        </div>
+        <div class="sale-item">
+          <div class="sale-img"><i data-lucide="layers"></i></div>
+          <div class="sale-info">
+            <h4>Pack de Temas "Space"</h4>
+            <p>10 temas inspirados no universo e galáxias distantes.</p>
+            <div class="sale-footer">
+              <span class="sale-price">R$ 14,90</span>
+              <button class="btn-buy"><i data-lucide="shopping-cart"></i> Comprar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
   </main>
 
-  <!-- ===== STOPWATCH / TIMER ===== -->
-  <section class="tools-section">
-    <div class="tools-tabs">
-      <button class="tools-tab tools-tab--active" data-tab="stopwatch"><i data-lucide="timer"></i> Cronômetro</button>
-      <button class="tools-tab" data-tab="timer"><i data-lucide="alarm-clock"></i> Timer</button>
+  <!-- ===== WIDGET OVERLAY ===== -->
+  <div class="widget-mode hidden" id="widgetOverlay">
+    <div class="widget-content">
+      <button class="close-widget" id="closeWidget"><i data-lucide="minimize-2"></i></button>
+      <div class="widget-time" id="widgetTime">00:00</div>
+      <div class="widget-date" id="widgetDate">01 Jan</div>
     </div>
+  </div>
 
-    <!-- Cronômetro -->
-    <div class="tool-panel" id="stopwatchPanel">
-      <div class="stopwatch-display" id="swDisplay">00:00:00.00</div>
-      <div class="tool-controls">
-        <button class="tool-btn tool-btn--primary" id="swStartStop"><i data-lucide="play"></i> Iniciar</button>
-        <button class="tool-btn tool-btn--secondary" id="swLap"><i data-lucide="flag"></i> Volta</button>
-        <button class="tool-btn tool-btn--danger" id="swReset"><i data-lucide="rotate-ccw"></i> Resetar</button>
-      </div>
-      <div class="laps-list" id="lapsList"></div>
-    </div>
-
-    <!-- Timer -->
-    <div class="tool-panel hidden" id="timerPanel">
-      <div class="timer-inputs">
-        <div class="timer-input-group">
-          <input type="number" id="timerHours"   min="0" max="23"  value="0"  placeholder="0" />
-          <label>h</label>
-        </div>
-        <span class="timer-sep">:</span>
-        <div class="timer-input-group">
-          <input type="number" id="timerMinutes" min="0" max="59"  value="5"  placeholder="0" />
-          <label>min</label>
-        </div>
-        <span class="timer-sep">:</span>
-        <div class="timer-input-group">
-          <input type="number" id="timerSeconds" min="0" max="59"  value="0"  placeholder="0" />
-          <label>seg</label>
-        </div>
-      </div>
-      <div class="timer-display" id="timerDisplay">00:05:00</div>
-      <div class="tool-controls">
-        <button class="tool-btn tool-btn--primary" id="timerStartStop"><i data-lucide="play"></i> Iniciar</button>
-        <button class="tool-btn tool-btn--danger"  id="timerReset"><i data-lucide="rotate-ccw"></i> Resetar</button>
-      </div>
-      <div class="timer-alert hidden" id="timerAlert">
-        <span><i data-lucide="bell-ring"></i> Tempo esgotado!</span>
-        <button onclick="dismissAlert()">OK</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===== RODAPÉ ===== -->
+  <!-- ===== FOOTER ===== -->
   <footer class="cv-footer">
-    <p>ClockVibe &copy; <span id="footerYear">2025</span> — Feito com <i data-lucide="zap" class="zap-icon"></i> e JavaScript puro</p>
+    <div class="footer-content">
+      <div class="footer-brand">
+        <i data-lucide="zap"></i> ClockVibe Pro
+      </div>
+      <div class="footer-links">
+        <a href="#">Termos</a>
+        <a href="#">Privacidade</a>
+        <a href="#">Suporte</a>
+      </div>
+      <div class="footer-social">
+        <i data-lucide="instagram"></i>
+        <i data-lucide="twitter"></i>
+        <i data-lucide="github"></i>
+      </div>
+    </div>
+    <p class="copyright">&copy; 2026 ClockVibe Pro. Todos os direitos reservados.</p>
   </footer>
 
   <script src="script.js"></script>
-  <script>
-    // Initialize Lucide icons
-    lucide.createIcons();
-  </script>
+  <script>lucide.createIcons();</script>
 </body>
 </html>
