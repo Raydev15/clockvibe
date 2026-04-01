@@ -11,6 +11,8 @@
     rel="stylesheet"
   />
   <link rel="stylesheet" href="style.css" />
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
 
@@ -19,7 +21,7 @@
 
   <!-- ===== TOGGLE TEMA ===== -->
   <button class="theme-toggle" id="themeToggle" aria-label="Alternar tema claro/escuro" title="Alternar tema">
-    <span class="theme-toggle__icon" id="themeIcon">☀️</span>
+    <i data-lucide="sun" id="themeIcon" class="theme-toggle__icon"></i>
   </button>
 
   <!-- ===== CONTAINER PRINCIPAL ===== -->
@@ -81,28 +83,28 @@
       <!-- Cards de informação -->
       <div class="info-cards">
         <div class="info-card">
-          <span class="info-card__icon">📅</span>
+          <span class="info-card__icon"><i data-lucide="calendar"></i></span>
           <div class="info-card__content">
             <span class="info-card__label">Semana</span>
             <span class="info-card__value" id="weekNumber">—</span>
           </div>
         </div>
         <div class="info-card">
-          <span class="info-card__icon">📆</span>
+          <span class="info-card__icon"><i data-lucide="calendar-days"></i></span>
           <div class="info-card__content">
             <span class="info-card__label">Dia do ano</span>
             <span class="info-card__value" id="dayOfYear">—</span>
           </div>
         </div>
         <div class="info-card">
-          <span class="info-card__icon">🌙</span>
+          <span class="info-card__icon"><i data-lucide="moon"></i></span>
           <div class="info-card__content">
             <span class="info-card__label">Fase lunar</span>
             <span class="info-card__value" id="moonPhase">—</span>
           </div>
         </div>
         <div class="info-card">
-          <span class="info-card__icon">⏱️</span>
+          <span class="info-card__icon"><i data-lucide="hash"></i></span>
           <div class="info-card__content">
             <span class="info-card__label">Timestamp</span>
             <span class="info-card__value" id="timestamp">—</span>
@@ -116,17 +118,17 @@
   <!-- ===== STOPWATCH / TIMER ===== -->
   <section class="tools-section">
     <div class="tools-tabs">
-      <button class="tools-tab tools-tab--active" data-tab="stopwatch">⏱ Cronômetro</button>
-      <button class="tools-tab" data-tab="timer">⏰ Timer</button>
+      <button class="tools-tab tools-tab--active" data-tab="stopwatch"><i data-lucide="timer"></i> Cronômetro</button>
+      <button class="tools-tab" data-tab="timer"><i data-lucide="alarm-clock"></i> Timer</button>
     </div>
 
     <!-- Cronômetro -->
     <div class="tool-panel" id="stopwatchPanel">
       <div class="stopwatch-display" id="swDisplay">00:00:00.00</div>
       <div class="tool-controls">
-        <button class="tool-btn tool-btn--primary" id="swStartStop">▶ Iniciar</button>
-        <button class="tool-btn tool-btn--secondary" id="swLap">🏁 Volta</button>
-        <button class="tool-btn tool-btn--danger" id="swReset">↺ Resetar</button>
+        <button class="tool-btn tool-btn--primary" id="swStartStop"><i data-lucide="play"></i> Iniciar</button>
+        <button class="tool-btn tool-btn--secondary" id="swLap"><i data-lucide="flag"></i> Volta</button>
+        <button class="tool-btn tool-btn--danger" id="swReset"><i data-lucide="rotate-ccw"></i> Resetar</button>
       </div>
       <div class="laps-list" id="lapsList"></div>
     </div>
@@ -151,11 +153,11 @@
       </div>
       <div class="timer-display" id="timerDisplay">00:05:00</div>
       <div class="tool-controls">
-        <button class="tool-btn tool-btn--primary" id="timerStartStop">▶ Iniciar</button>
-        <button class="tool-btn tool-btn--danger"  id="timerReset">↺ Resetar</button>
+        <button class="tool-btn tool-btn--primary" id="timerStartStop"><i data-lucide="play"></i> Iniciar</button>
+        <button class="tool-btn tool-btn--danger"  id="timerReset"><i data-lucide="rotate-ccw"></i> Resetar</button>
       </div>
       <div class="timer-alert hidden" id="timerAlert">
-        <span>⏰ Tempo esgotado!</span>
+        <span><i data-lucide="bell-ring"></i> Tempo esgotado!</span>
         <button onclick="dismissAlert()">OK</button>
       </div>
     </div>
@@ -163,9 +165,13 @@
 
   <!-- ===== RODAPÉ ===== -->
   <footer class="cv-footer">
-    <p>ClockVibe &copy; <span id="footerYear">2025</span> — Feito com ⚡ e JavaScript puro</p>
+    <p>ClockVibe &copy; <span id="footerYear">2025</span> — Feito com <i data-lucide="zap" class="zap-icon"></i> e JavaScript puro</p>
   </footer>
 
   <script src="script.js"></script>
+  <script>
+    // Initialize Lucide icons
+    lucide.createIcons();
+  </script>
 </body>
 </html>

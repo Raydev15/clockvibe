@@ -639,3 +639,11 @@ body {
   .timer-inputs { gap: 4px; }
   .timer-input-group input { width: 60px; font-size: 1.1rem; }
 }
+
+/* ── Estilos para Lucide Icons ── */
+.theme-toggle__icon { width: 24px; height: 24px; color: var(--accent); }
+.info-card__icon svg { width: 24px; height: 24px; color: var(--accent-2); }
+.tools-tab svg { width: 18px; height: 18px; vertical-align: middle; margin-right: 6px; }
+.tool-btn svg { width: 18px; height: 18px; vertical-align: middle; margin-right: 6px; }
+.timer-alert svg { width: 20px; height: 20px; vertical-align: middle; margin-right: 8px; }
+.zap-icon { width: 14px; height: 14px; color: var(--accent); fill: var(--accent); vertical-align: middle; display: inline-block; }

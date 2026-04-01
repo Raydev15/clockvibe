@@ -22,7 +22,9 @@ themeBtn.addEventListener('click', () => {
 
 function applyTheme(theme) {
   html.setAttribute('data-theme', theme);
-  themeIcon.textContent = theme === 'dark' ? '☀️' : '🌙';
+  const iconName = theme === 'dark' ? 'sun' : 'moon';
+  themeIcon.setAttribute('data-lucide', iconName);
+  if (window.lucide) lucide.createIcons();
 }
 
 /* =====================================================
@@ -280,14 +282,15 @@ swStartStop.addEventListener('click', () => {
       swDisplay.textContent = formatSW(swElapsed);
     }, 10);
     swRunning = true;
-    swStartStop.textContent = '⏸ Pausar';
+    swStartStop.innerHTML = '<i data-lucide="pause"></i> Pausar';
     swStartStop.style.background = 'linear-gradient(135deg, #fb923c, #f97316)';
   } else {
     clearInterval(swInterval);
     swRunning = false;
-    swStartStop.textContent = '▶ Continuar';
+    swStartStop.innerHTML = '<i data-lucide="play"></i> Continuar';
     swStartStop.style.background = '';
   }
+  if (window.lucide) lucide.createIcons();
 });
 
 swLap.addEventListener('click', () => {
@@ -314,9 +317,10 @@ swReset.addEventListener('click', () => {
   lapCount   = 0;
   lastLapTime = 0;
   swDisplay.textContent = '00:00:00.00';
-  swStartStop.textContent = '▶ Iniciar';
+  swStartStop.innerHTML = '<i data-lucide="play"></i> Iniciar';
   swStartStop.style.background = '';
   lapsList.innerHTML = '';
+  if (window.lucide) lucide.createIcons();
 });
 
 /* =====================================================
@@ -365,21 +369,23 @@ timerStartStop.addEventListener('click', () => {
         timerRunning = false;
         timerDisplay.classList.remove('urgent');
         timerAlert.classList.remove('hidden');
-        timerStartStop.textContent = '▶ Iniciar';
+        timerStartStop.innerHTML = '<i data-lucide="play"></i> Iniciar';
         timerStartStop.style.background = '';
+        if (window.lucide) lucide.createIcons();
         // Vibração (mobile)
         if (navigator.vibrate) navigator.vibrate([300, 100, 300]);
       }
     }, 1000);
     timerRunning = true;
-    timerStartStop.textContent = '⏸ Pausar';
+    timerStartStop.innerHTML = '<i data-lucide="pause"></i> Pausar';
     timerStartStop.style.background = 'linear-gradient(135deg, #fb923c, #f97316)';
   } else {
     clearInterval(timerInterval);
     timerRunning = false;
-    timerStartStop.textContent = '▶ Continuar';
+    timerStartStop.innerHTML = '<i data-lucide="play"></i> Continuar';
     timerStartStop.style.background = '';
   }
+  if (window.lucide) lucide.createIcons();
 });
 
 timerResetBtn.addEventListener('click', () => {
@@ -389,8 +395,9 @@ timerResetBtn.addEventListener('click', () => {
   timerDisplay.textContent = '00:00:00';
   timerDisplay.classList.remove('urgent');
   timerAlert.classList.add('hidden');
-  timerStartStop.textContent = '▶ Iniciar';
+  timerStartStop.innerHTML = '<i data-lucide="play"></i> Iniciar';
   timerStartStop.style.background = '';
+  if (window.lucide) lucide.createIcons();
 });
 
 function dismissAlert() {
