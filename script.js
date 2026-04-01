@@ -1,7 +1,32 @@
 /**
  * ClockVibe Pro — script.js
- * Lógica avançada para temas, widget, progresso do dia e animações.
+ * Lógica avançada para multi-páginas, PWA, temas e widget.
  */
+
+/* =====================================================
+   NAVEGAÇÃO MULTI-PÁGINAS
+   ===================================================== */
+function showPage(pageId) {
+  // Esconder todas as páginas
+  document.querySelectorAll('.page').forEach(page => {
+    page.classList.remove('active');
+  });
+  
+  // Mostrar a página selecionada
+  const targetPage = document.getElementById(`page-${pageId}`);
+  if (targetPage) {
+    targetPage.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Atualizar links da nav
+  document.querySelectorAll('.cv-nav a').forEach(link => {
+    link.classList.remove('active');
+  });
+  
+  // Re-inicializar ícones Lucide para novos elementos
+  if (window.lucide) lucide.createIcons();
+}
 
 /* =====================================================
    CONFIGURAÇÃO DE TEMAS
@@ -16,7 +41,8 @@ applyTheme(currentTheme);
 themeCards.forEach(card => {
   card.addEventListener('click', () => {
     if (card.classList.contains('pro-locked')) {
-      alert('Este tema é exclusivo para assinantes PRO! 🚀');
+      alert('Este tema é exclusivo para assinantes PRO! 🚀\n\nDesbloqueie agora na aba de Assinaturas.');
+      showPage('planos');
       return;
     }
     const theme = card.dataset.theme;
@@ -31,12 +57,11 @@ themeCards.forEach(card => {
 
 function applyTheme(theme) {
   html.setAttribute('data-theme', theme);
-  // Re-inicializar partículas se necessário ou mudar cores
   if (window.lucide) lucide.createIcons();
 }
 
 /* =====================================================
-   MODO WIDGET
+   MODO WIDGET (FULLSCREEN)
    ===================================================== */
 const toggleWidget = document.getElementById('toggleWidget');
 const closeWidget = document.getElementById('closeWidget');
@@ -47,11 +72,18 @@ const widgetDate = document.getElementById('widgetDate');
 toggleWidget.addEventListener('click', () => {
   widgetOverlay.classList.remove('hidden');
   document.body.style.overflow = 'hidden';
+  // Tentar entrar em Fullscreen real
+  if (document.documentElement.requestFullscreen) {
+    document.documentElement.requestFullscreen();
+  }
 });
 
 closeWidget.addEventListener('click', () => {
   widgetOverlay.classList.add('hidden');
   document.body.style.overflow = '';
+  if (document.exitFullscreen) {
+    document.exitFullscreen();
+  }
 });
 
 // Fechar widget com ESC
@@ -144,33 +176,33 @@ function updateClock() {
   const ms = now.getMilliseconds();
 
   // Digital
-  hoursEl.textContent = String(h).padStart(2, '0');
-  minutesEl.textContent = String(m).padStart(2, '0');
-  secondsEl.textContent = String(s).padStart(2, '0');
+  if (hoursEl) hoursEl.textContent = String(h).padStart(2, '0');
+  if (minutesEl) minutesEl.textContent = String(m).padStart(2, '0');
+  if (secondsEl) secondsEl.textContent = String(s).padStart(2, '0');
 
   // Widget
-  widgetTime.textContent = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
-  widgetDate.textContent = `${now.getDate()} ${MESES[now.getMonth()]}`;
+  if (widgetTime) widgetTime.textContent = `${String(h).padStart(2, '0')}:${String(m).padStart(2, '0')}`;
+  if (widgetDate) widgetDate.textContent = `${now.getDate()} ${MESES[now.getMonth()]}`;
 
   // Analógico
   const hDeg = (h % 12) * 30 + m * 0.5;
   const mDeg = m * 6 + s * 0.1;
   const sDeg = s * 6 + ms * 0.006;
 
-  hourHand.style.transform = `rotate(${hDeg}deg)`;
-  minuteHand.style.transform = `rotate(${mDeg}deg)`;
-  secondHand.style.transform = `rotate(${sDeg}deg)`;
+  if (hourHand) hourHand.style.transform = `rotate(${hDeg}deg)`;
+  if (minuteHand) minuteHand.style.transform = `rotate(${mDeg}deg)`;
+  if (secondHand) secondHand.style.transform = `rotate(${sDeg}deg)`;
 
   // Data
-  weekdayEl.textContent = DIAS[now.getDay()];
-  fullDateEl.textContent = `${now.getDate()} ${MESES[now.getMonth()]} ${now.getFullYear()}`;
+  if (weekdayEl) weekdayEl.textContent = DIAS[now.getDay()];
+  if (fullDateEl) fullDateEl.textContent = `${now.getDate()} ${MESES[now.getMonth()]} ${now.getFullYear()}`;
 
   // Progresso do Dia
   const totalSeconds = 24 * 60 * 60;
   const elapsedSeconds = h * 3600 + m * 60 + s;
   const percent = (elapsedSeconds / totalSeconds) * 100;
-  progressFill.style.width = `${percent}%`;
-  dayPercentEl.textContent = `${percent.toFixed(1)}%`;
+  if (progressFill) progressFill.style.width = `${percent}%`;
+  if (dayPercentEl) dayPercentEl.textContent = `${percent.toFixed(1)}%`;
 }
 
 setInterval(updateClock, 100);
@@ -180,27 +212,17 @@ updateClock();
    MARCADORES DO RELÓGIO
    ===================================================== */
 const clockMarks = document.getElementById('clockMarks');
-for (let i = 0; i < 60; i++) {
-  const mark = document.createElement('div');
-  mark.style.position = 'absolute';
-  mark.style.width = i % 5 === 0 ? '4px' : '1px';
-  mark.style.height = i % 5 === 0 ? '15px' : '8px';
-  mark.style.background = i % 5 === 0 ? 'var(--accent)' : 'var(--text-3)';
-  mark.style.left = '50%';
-  mark.style.top = '0';
-  mark.style.transformOrigin = '0 150px';
-  mark.style.transform = `translateX(-50%) rotate(${i * 6}deg)`;
-  clockMarks.appendChild(mark);
+if (clockMarks) {
+  for (let i = 0; i < 60; i++) {
+    const mark = document.createElement('div');
+    mark.style.position = 'absolute';
+    mark.style.width = i % 5 === 0 ? '4px' : '1px';
+    mark.style.height = i % 5 === 0 ? '15px' : '8px';
+    mark.style.background = i % 5 === 0 ? 'var(--accent)' : 'var(--text-3)';
+    mark.style.left = '50%';
+    mark.style.top = '0';
+    mark.style.transformOrigin = '0 150px';
+    mark.style.transform = `translateX(-50%) rotate(${i * 6}deg)`;
+    clockMarks.appendChild(mark);
+  }
 }
-
-/* =====================================================
-   SMOOTH SCROLL
-   ===================================================== */
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
-    e.preventDefault();
-    document.querySelector(this.getAttribute('href')).scrollIntoView({
-      behavior: 'smooth'
-    });
-  });
-});

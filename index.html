@@ -11,6 +11,7 @@
     rel="stylesheet"
   />
   <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json" />
   <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 <body>
@@ -21,15 +22,15 @@
 
   <!-- ===== HEADER / NAV ===== -->
   <header class="cv-header">
-    <div class="cv-logo">
+    <div class="cv-logo" onclick="showPage('home')">
       <i data-lucide="zap" class="logo-icon"></i>
       <span>ClockVibe <span class="badge-pro">PRO</span></span>
     </div>
     <nav class="cv-nav">
-      <a href="#relogio">Relógio</a>
-      <a href="#temas">Temas</a>
-      <a href="#planos">Assinaturas</a>
-      <a href="#vendas">Vendas</a>
+      <a href="javascript:void(0)" onclick="showPage('home')">Relógio</a>
+      <a href="javascript:void(0)" onclick="showPage('temas')">Temas</a>
+      <a href="javascript:void(0)" onclick="showPage('planos')">Assinaturas</a>
+      <a href="javascript:void(0)" onclick="showPage('vendas')">Loja</a>
     </nav>
     <div class="cv-actions">
       <button class="btn-widget" id="toggleWidget" title="Modo Widget Desktop">
@@ -39,10 +40,8 @@
     </div>
   </header>
 
-  <!-- ===== MAIN CONTENT ===== -->
-  <main class="main-wrapper" id="relogio">
-    
-    <!-- Seção do Relógio -->
+  <!-- ===== PÁGINA: HOME (RELÓGIO) ===== -->
+  <main class="page active" id="page-home">
     <section class="clock-hero">
       <div class="clock-display-wrapper">
         <div class="analog-clock" id="analogClock">
@@ -65,7 +64,6 @@
         </div>
       </div>
 
-      <!-- Barra de Progresso Criativa -->
       <div class="progress-container">
         <div class="progress-label">Progresso do Dia <span id="dayPercent">0%</span></div>
         <div class="progress-bar">
@@ -73,42 +71,90 @@
         </div>
       </div>
     </section>
+  </main>
 
-    <!-- Seção de Temas e Personalização -->
-    <section class="section-container" id="temas">
+  <!-- ===== PÁGINA: TEMAS ===== -->
+  <main class="page" id="page-temas">
+    <section class="section-container">
       <div class="section-header">
-        <h2 class="section-title">Temas & Estilos</h2>
-        <p class="section-desc">Personalize sua experiência com temas exclusivos e modernos.</p>
+        <h2 class="section-title">Biblioteca de Temas</h2>
+        <p class="section-desc">Escolha entre centenas de estilos exclusivos.</p>
       </div>
-      <div class="themes-grid">
-        <button class="theme-card active" data-theme="cyberpunk">
-          <div class="theme-preview cyberpunk"></div>
-          <span>Cyberpunk</span>
-        </button>
-        <button class="theme-card" data-theme="minimal">
-          <div class="theme-preview minimal"></div>
-          <span>Minimalist</span>
-        </button>
-        <button class="theme-card" data-theme="ocean">
-          <div class="theme-preview ocean"></div>
-          <span>Deep Ocean</span>
-        </button>
-        <button class="theme-card" data-theme="gold">
-          <div class="theme-preview gold"></div>
-          <span>Luxury Gold</span>
-        </button>
-        <button class="theme-card pro-locked" data-theme="nebula">
-          <div class="theme-preview nebula"></div>
-          <span>Nebula <i data-lucide="lock" class="lock-icon"></i></span>
-        </button>
+      
+      <div class="theme-category">
+        <h3>✨ Estilos Populares</h3>
+        <div class="themes-grid">
+          <button class="theme-card active" data-theme="cyberpunk">
+            <div class="theme-preview cyberpunk"></div>
+            <span>Cyberpunk</span>
+          </button>
+          <button class="theme-card" data-theme="minimal">
+            <div class="theme-preview minimal"></div>
+            <span>Minimalist</span>
+          </button>
+          <button class="theme-card" data-theme="ocean">
+            <div class="theme-preview ocean"></div>
+            <span>Deep Ocean</span>
+          </button>
+          <button class="theme-card" data-theme="gold">
+            <div class="theme-preview gold"></div>
+            <span>Luxury Gold</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="theme-category">
+        <h3>🌸 Kawaii & Pastéis</h3>
+        <div class="themes-grid">
+          <button class="theme-card pro-locked" data-theme="hellokitty">
+            <div class="theme-preview hellokitty"></div>
+            <span>Hello Kitty <i data-lucide="lock" class="lock-icon"></i></span>
+          </button>
+          <button class="theme-card" data-theme="pastel-pink">
+            <div class="theme-preview pastel-pink"></div>
+            <span>Pastel Pink</span>
+          </button>
+          <button class="theme-card" data-theme="pastel-blue">
+            <div class="theme-preview pastel-blue"></div>
+            <span>Pastel Blue</span>
+          </button>
+          <button class="theme-card" data-theme="lavender">
+            <div class="theme-preview lavender"></div>
+            <span>Lavender</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="theme-category">
+        <h3>🦸 Heróis & Aventura</h3>
+        <div class="themes-grid">
+          <button class="theme-card pro-locked" data-theme="hero-dark">
+            <div class="theme-preview hero-dark"></div>
+            <span>Dark Knight <i data-lucide="lock" class="lock-icon"></i></span>
+          </button>
+          <button class="theme-card pro-locked" data-theme="hero-red">
+            <div class="theme-preview hero-red"></div>
+            <span>Spider Web <i data-lucide="lock" class="lock-icon"></i></span>
+          </button>
+          <button class="theme-card pro-locked" data-theme="hero-blue">
+            <div class="theme-preview hero-blue"></div>
+            <span>Super Blue <i data-lucide="lock" class="lock-icon"></i></span>
+          </button>
+          <button class="theme-card pro-locked" data-theme="nebula">
+            <div class="theme-preview nebula"></div>
+            <span>Nebula <i data-lucide="lock" class="lock-icon"></i></span>
+          </button>
+        </div>
       </div>
     </section>
+  </main>
 
-    <!-- Seção de Assinaturas / Planos -->
-    <section class="section-container" id="planos">
+  <!-- ===== PÁGINA: PLANOS ===== -->
+  <main class="page" id="page-planos">
+    <section class="section-container">
       <div class="section-header">
         <h2 class="section-title">Planos de Assinatura</h2>
-        <p class="section-desc">Desbloqueie todo o potencial do ClockVibe Pro.</p>
+        <p class="section-desc">Desbloqueie todos os temas e o modo App.</p>
       </div>
       <div class="pricing-grid">
         <div class="price-card">
@@ -116,7 +162,7 @@
           <div class="price">R$ 0<span>/mês</span></div>
           <ul>
             <li><i data-lucide="check"></i> Relógio Digital/Analógico</li>
-            <li><i data-lucide="check"></i> 2 Temas Básicos</li>
+            <li><i data-lucide="check"></i> 4 Temas Básicos</li>
             <li><i data-lucide="x" class="x-icon"></i> Sem Anúncios</li>
             <li><i data-lucide="x" class="x-icon"></i> Widget Desktop</li>
           </ul>
@@ -127,12 +173,12 @@
           <h3>Pro</h3>
           <div class="price">R$ 19<span>/mês</span></div>
           <ul>
-            <li><i data-lucide="check"></i> Todos os Temas Premium</li>
-            <li><i data-lucide="check"></i> Widget Desktop Ilimitado</li>
+            <li><i data-lucide="check"></i> Todos os Temas (Hello Kitty, Heróis)</li>
+            <li><i data-lucide="check"></i> Instalação como App Desktop</li>
             <li><i data-lucide="check"></i> Modo Pomodoro Integrado</li>
             <li><i data-lucide="check"></i> Suporte Prioritário</li>
           </ul>
-          <button class="btn-price btn-primary">Assinar Agora</button>
+          <button class="btn-price btn-primary" onclick="showPage('vendas')">Assinar Agora</button>
         </div>
         <div class="price-card">
           <h3>Lifetime</h3>
@@ -143,46 +189,43 @@
             <li><i data-lucide="check"></i> Certificado Digital PRO</li>
             <li><i data-lucide="check"></i> Cloud Sync</li>
           </ul>
-          <button class="btn-price">Comprar Agora</button>
+          <button class="btn-price" onclick="showPage('vendas')">Comprar Agora</button>
         </div>
       </div>
     </section>
-
-    <!-- Seção de Vendas / Checkout -->
-    <section class="section-container" id="vendas">
-      <div class="section-header">
-        <h2 class="section-title">Loja ClockVibe</h2>
-        <p class="section-desc">Adquira licenças e extensões exclusivas.</p>
-      </div>
-      <div class="sales-grid">
-        <div class="sale-item">
-          <div class="sale-img"><i data-lucide="monitor-smartphone"></i></div>
-          <div class="sale-info">
-            <h4>Licença Multi-Device</h4>
-            <p>Use o ClockVibe em até 5 dispositivos simultaneamente.</p>
-            <div class="sale-footer">
-              <span class="sale-price">R$ 29,90</span>
-              <button class="btn-buy"><i data-lucide="shopping-cart"></i> Comprar</button>
-            </div>
-          </div>
-        </div>
-        <div class="sale-item">
-          <div class="sale-img"><i data-lucide="layers"></i></div>
-          <div class="sale-info">
-            <h4>Pack de Temas "Space"</h4>
-            <p>10 temas inspirados no universo e galáxias distantes.</p>
-            <div class="sale-footer">
-              <span class="sale-price">R$ 14,90</span>
-              <button class="btn-buy"><i data-lucide="shopping-cart"></i> Comprar</button>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
   </main>
 
-  <!-- ===== WIDGET OVERLAY ===== -->
+  <!-- ===== PÁGINA: LOJA / VENDAS ===== -->
+  <main class="page" id="page-vendas">
+    <section class="section-container">
+      <div class="section-header">
+        <h2 class="section-title">Finalizar Compra</h2>
+        <p class="section-desc">Adquira sua licença ClockVibe Pro com segurança.</p>
+      </div>
+      <div class="checkout-container">
+        <div class="checkout-card">
+          <div class="checkout-header">
+            <h4>Resumo do Pedido</h4>
+          </div>
+          <div class="checkout-item">
+            <span>Assinatura ClockVibe Pro (Mensal)</span>
+            <span>R$ 19,00</span>
+          </div>
+          <div class="checkout-total">
+            <span>Total</span>
+            <span>R$ 19,00</span>
+          </div>
+          <div class="payment-methods">
+            <button class="btn-pay active"><i data-lucide="credit-card"></i> Cartão</button>
+            <button class="btn-pay"><i data-lucide="qr-code"></i> PIX</button>
+          </div>
+          <button class="btn-checkout">Pagar Agora</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== WIDGET OVERLAY (FULLSCREEN) ===== -->
   <div class="widget-mode hidden" id="widgetOverlay">
     <div class="widget-content">
       <button class="close-widget" id="closeWidget"><i data-lucide="minimize-2"></i></button>
@@ -198,9 +241,9 @@
         <i data-lucide="zap"></i> ClockVibe Pro
       </div>
       <div class="footer-links">
-        <a href="#">Termos</a>
-        <a href="#">Privacidade</a>
-        <a href="#">Suporte</a>
+        <a href="javascript:void(0)" onclick="showPage('home')">Início</a>
+        <a href="javascript:void(0)" onclick="showPage('temas')">Temas</a>
+        <a href="javascript:void(0)" onclick="showPage('planos')">Assinaturas</a>
       </div>
       <div class="footer-social">
         <i data-lucide="instagram"></i>
@@ -212,6 +255,12 @@
   </footer>
 
   <script src="script.js"></script>
-  <script>lucide.createIcons();</script>
+  <script>
+    lucide.createIcons();
+    // Register Service Worker for PWA
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js');
+    }
+  </script>
 </body>
 </html>
